@@ -21,6 +21,7 @@ interface IProps {
   const pass = useRef("");
 
   const onSubmit = async () => {
+    
     console.log(email,pass)
     const result = await signIn("credentials", {
       email: email.current,
@@ -28,7 +29,9 @@ interface IProps {
       redirect: true,
       callbackUrl: "/user/personal-info",
     });
+    console.log(result)
   };
+
 
   return (
     <div className="py-[30px] lg:py-[60px] bg-[var(--bg-2)] signup-section">
@@ -80,7 +83,7 @@ interface IProps {
                     <p className="mb-0">
                       Don&apos;t have an account?{" "}
                       <Link
-                        href="signup"
+                        href="/signup"
                         className="link font-semibold text-primary">
                         Signup
                       </Link>

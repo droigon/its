@@ -83,22 +83,7 @@ const MenuItems: React.FC<MenuItemsProps> = ({ items, depthLevel }) => {
       ref={ref}>
       {items.submenu ? (
         <>
-          <span
-            aria-haspopup="menu"
-            aria-expanded={dropdown ? "true" : "false"}
-            onClick={() => setDropdown((prev) => !prev)}
-            className="flex items-center justify-between gap-1">
-            {items.title}{" "}
-            {depthLevel > 0 && <i className="las la-angle-right"></i>}
-            {depthLevel == 0 && typeof items.title === "string" && (
-              <i className="las la-angle-down"></i>
-            )}
-          </span>
-          <Dropdown
-            dropdown={dropdown}
-            submenus={items.submenu}
-            depthLevel={depthLevel}
-          />
+          
         </>
       ) : (
         <Link href={items.url as string}>{items.title}</Link>

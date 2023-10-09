@@ -25,7 +25,7 @@ export const menus = [
     submenu: [
       {
         title: "User Dashboard",
-        url: "/user",
+        url: "/user/personal-info",
       },
       {
         title: "Vendor Dashboard",

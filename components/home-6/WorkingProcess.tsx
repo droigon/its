@@ -11,11 +11,12 @@ const WorkingProcess = () => {
         <div className="max-w-[630px] mx-auto flex flex-col items-center text-center">
           <SubHeadingBtn text="Working Process" classes="bg-white" />
           <h2 className="h2 mt-3 leading-tight">
-            How to Book Your Flight Tickets: A Step-by-Step Guide
+            How to Book Your Tour Tickets: A Step-by-Step Guide
           </h2>
           <p className="text-neutral-600 pt-5 pb-8 lg:pb-14">
-            Real estate can be bought, sold, leased, or rented, and can be a
-            valuable investment opportunity. The value of real estate can be...
+
+          Tours can be booked, experienced, guided, or customized, and can present a valuable adventure opportunity. 
+
           </p>
         </div>
         <div className="grid grid-cols-12 gap-4 lg:gap-6">
@@ -30,8 +31,7 @@ const WorkingProcess = () => {
               Search Choice
             </h4>
             <p>
-              Determine the type of real estate you want to specialize in, such
-              as residential
+            Explore and research potential travel destinations based on your interests, budget, and preferred activities.
             </p>
           </div>
           <div className="col-span-12 md:col-span-6 lg:col-span-4 border p-6 lg:p-8 rounded-2xl text-center flex flex-col items-center">
@@ -45,8 +45,7 @@ const WorkingProcess = () => {
               Select Destination
             </h4>
             <p>
-              Determine the type of real estate you want to specialize in, such
-              as residential
+              Determine the type of tour you want
             </p>
           </div>
           <div className="col-span-12 md:col-span-6 lg:col-span-4 border p-6 lg:p-8 rounded-2xl text-center flex flex-col items-center">
@@ -57,11 +56,10 @@ const WorkingProcess = () => {
               </span>
             </div>
             <h4 className="text-[32px] leading-[38px] font-semibold mb-3">
-              Easy to Book
+            Confirmation and Documentation
             </h4>
             <p>
-              Determine the type of real estate you want to specialize in, such
-              as residential
+            Receive the tour confirmation and make sure to keep all relevant documentation in a safe and accessible place.
             </p>
           </div>
         </div>

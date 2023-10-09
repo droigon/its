@@ -91,7 +91,7 @@ const Page = () => {
                   <label
                     htmlFor="user-email"
                     className="block mb-2 font-medium clr-neutral-500">
-                    Email :
+                    {} :
                   </label>
                   <input
                     type="text"
@@ -272,70 +272,8 @@ const Page = () => {
           </div>
         </Accordion>
       </div>
-      <div className="bg-white p-4 sm:p-6 md:p-8 mb-6 rounded-2xl shadow-lg">
-        <Accordion
-          buttonContent={(open) => (
-            <div className="rounded-2xl flex justify-between items-center">
-              <h3 className="h3">Privacy </h3>
-              <ChevronDownIcon
-                className={`w-5 h-5 sm:w-6 sm:h-6 duration-300 ${
-                  open ? "rotate-180" : ""
-                }`}
-              />
-            </div>
-          )}
-          initialOpen={true}>
-          <div className="pt-4 lg:pt-6">
-            <form action="#" className="grid grid-cols-12 gap-4">
-              <div className="col-span-12 -12">
-                <label className="block mb-2 font-medium clr-neutral-500 text-xl">
-                  Who can see your profile photo?
-                </label>
-                <div className="border rounded-lg px-4 bg-transparent">
-                  <select
-                    className="w-full bg-transparent px-5 py-3 focus:outline-none"
-                    aria-label="Default select example">
-                    <option>Anyone</option>
-                    <option value="1">New York</option>
-                    <option value="2">Chicago</option>
-                    <option value="3">Atlanta</option>
-                  </select>
-                </div>
-              </div>
-            </form>
-          </div>
-        </Accordion>
-      </div>
-      <div className="bg-white p-4 sm:p-6 md:p-8 mb-6 rounded-2xl shadow-lg">
-        <Accordion
-          buttonContent={(open) => (
-            <div className="rounded-2xl flex justify-between items-center">
-              <h3 className="h3">Delete Your Account </h3>
-              <ChevronDownIcon
-                className={`w-5 h-5 sm:w-6 sm:h-6 duration-300 ${
-                  open ? "rotate-180" : ""
-                }`}
-              />
-            </div>
-          )}
-          initialOpen={true}>
-          <div className="pt-4 lg:pt-6">
-            <p className="clr-neutral-500 mb-4">
-              When you delete your account, you lose access to Front account
-              services, and we permanently delete your personal data. You can
-              cancel the deletion for 14 days.
-            </p>
-            <div className="mb-8">
-              <CheckboxCustom label="Confirm that I want to delete my account." />
-            </div>
-            <Link
-              href="#"
-              className="btn-outline bg-[var(--tertiary)] border-[var(--tertiary)] text-[var(--neutral-700)] hover:bg-[var(--tertiary)] hover:text-neutral-700 font-semibold">
-              Delete
-            </Link>
-          </div>
-        </Accordion>
-      </div>
+      
+      
     </>
   );
 };

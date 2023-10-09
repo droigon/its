@@ -34,17 +34,13 @@ export default function Home({}) {
       <CommonHeader />
       <MobileMenu />
       <Hero />
-      
-      <CardList page={page}/>
 
       <WhyChoose />
       <Featured />
-      <DiscountCard />
+    
       <TravelMemory />
-      <Counter />
-      <TopCategory/>
-
-
+     
+     
       <Testimonial />
 
       <Footer />

@@ -28,6 +28,7 @@ export const authOptions: NextAuthOptions = {
       
       async authorize(credentials, req) {
         const { email, password } = credentials as any;
+        //console.log(email,password,"loggin")
         const res = await fetch("https://blesstours.onrender.com/api/v1/users/signin", {
           method: "POST",
           headers: {
@@ -42,7 +43,7 @@ export const authOptions: NextAuthOptions = {
         //console.log("Username",email, password)
         const user = await res.json();
 
-        //console.log("user",user)
+        console.log("user",user)
 
         //console.log({ user });
 
@@ -50,12 +51,12 @@ export const authOptions: NextAuthOptions = {
           return user;
         } else return null;
       },
+      
     }),
   ],
-
   
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user,isNewUser }) {
       user && (token.user = user);
       //console.log("sessions",token,user)
       return { ...token, ...user };
@@ -63,15 +64,17 @@ export const authOptions: NextAuthOptions = {
     async session({ session, token, user }) {
       // Send properties to the client, like an access_token from a provider.
       session.user = token;
-      //console.log('saving session',token)
+      console.log('saving session',token)
 
       return session;
     },
+    
     
   },
 
   pages: {
     signIn: "/auth/login",
+    newUser: "/user/onboarding",
   },
 };
 

@@ -10,86 +10,77 @@ import Image from "next/image";
 import Link from "next/link";
 import { featuredPackage } from "@/public/data/featuredpackage";
 import CardPagination from "@/components/CardPagination";
+import React, { useState, useEffect } from 'react';
 
-const page = () => {
+interface PackageInfo {
+  _id: string;
+  NAME: string;
+  DURATION: string;
+  AMOUNT: number;
+  GUESTS: number;
+}
+
+interface ApiResponse {
+  data: PackageInfo[];
+}
+
+const fetchFeaturedPackages = async (): Promise<PackageInfo[]> => {
+  const response = await fetch('https://blesstours.onrender.com/api/v1/tours/');
+  const responseData: ApiResponse = await response.json();
+  return responseData.data || [];
+};
+
+
+const PackageCard: React.FC<{ packageInfo: PackageInfo }> = ({ packageInfo }) => {
+  const { _id, NAME, DURATION,  AMOUNT,GUESTS } = packageInfo;
+
   return (
-    <>
-      {featuredPackage.map(
-        ({ id, activity, capacity, img, place, price, rating, title }) => (
-          <div key={id} className="col-span-12 md:col-span-6 group">
+    <div key={_id} className="col-span-12 md:col-span-6 group">
             <div className="bg-white rounded-2xl p-3">
               <div className="relative">
                 <div className="rounded-2xl">
-                  {img.length > 1 ? (
-                    <Swiper
-                      loop={true}
-                      pagination={{
-                        el: ".property-card-pagination",
-                      }}
-                      navigation={{
-                        nextEl: ".property-card-next",
-                        prevEl: ".property-card-prev",
-                      }}
-                      modules={[Navigation, Pagination]}
-                      className="swiper property-card-slider">
-                      {img.map((item) => (
-                        <SwiperSlide key={item}>
-                          <Image
-                            width={400}
-                            height={306}
-                            src={item}
-                            alt="image"
-                            className="w-full rounded-2xl"
-                          />
-                        </SwiperSlide>
-                      ))}
-
-                      <div className="swiper-pagination property-card-pagination"></div>
-                      <div className="swiper-button-prev !opacity-0 group-hover:!opacity-100 duration-300 property-card-prev"></div>
-                      <div className="swiper-button-next !opacity-0 group-hover:!opacity-100 duration-300 property-card-next"></div>
-                    </Swiper>
-                  ) : (
-                    <Image
-                      width={400}
-                      height={306}
-                      src="/img/featured-package-1.jpg"
-                      alt="image"
-                      className="w-full rounded-2xl"
-                    />
-                  )}
+                <Image
+                        width={400}
+                        height={306}
+                        src="/img/tour-details-img-2.jpg"
+                        alt="image"
+                        className=" w-full rounded-2xl"
+                      />
+                  
                 </div>
                 <div className="flex items-center justify-between p-4 absolute top-0 w-full">
                   <span className="inline-block py-2 px-5 rounded-full bg-[#58DA90]">
-                    {place} Places
+                    {} Places
                   </span>
                   <span className="inline-block py-2 px-5 rounded-full bg-[#FFBF47]">
-                    {activity} Activities
+                    {} Activities
                   </span>
                 </div>
               </div>
               <div className="p-4">
                 <div className="flex justify-between mb-2">
+                
                   <Link
-                    href="tour-listing-details"
+                    href={`/tour/${_id}`}
                     className="link block flex-grow text-xl font-medium">
-                    {title}
+                    {NAME}
                   </Link>
                   <div className="flex gap-1 items-center shrink-0">
                     <i className="las la-star text-[var(--tertiary)]"></i>
-                    <span className="block"> {rating} </span>
+                    <span className="block"> {} </span>
                   </div>
                 </div>
                 <ul className="grid grid-cols-2 gap-3">
                   <li className="col-span-1">
                     <div className="flex items-center gap-2">
                       <i className="las la-clock text-xl text-[#22804A]"></i>
-                      <span className="block"> 4 Days 5 Night </span>
+                      <span className="block"> {DURATION} </span>
                     </div>
                   </li>
                   <li className="col-span-1">
                     <div className="flex items-center gap-2">
                       <i className="las la-user-friends text-xl text-[#22804A]"></i>
-                      <span className="block"> Capacity {capacity} </span>
+                      <span className="block"> Capacity {GUESTS} </span>
                     </div>
                   </li>
                 </ul>
@@ -100,25 +91,57 @@ const page = () => {
               <div className="p-4">
                 <div className="flex flex-wrap justify-between items-center">
                   <span className="block text-xl font-medium text-primary">
-                    ${price}
+                    ${AMOUNT}
                     <span className="inline-block font-normal text-base">
-                      /month
+                      /trip
                     </span>
                   </span>
                   <Link
                     href="/tour-listing-details"
                     className="btn-outline  font-semibold">
-                    Rent Now
+                    Book Now
                   </Link>
                 </div>
               </div>
             </div>
           </div>
-        )
-      )}
+  );
+};
+
+
+
+  const Page: React.FC = () => {
+    const [packages, setPackages] = useState<PackageInfo[]>([]);
+    const [isLoading, setLoading] = useState<boolean>(true);
+  
+    useEffect(() => {
+      const fetchPackages = async (): Promise<void> => {
+        try {
+          const data = await fetchFeaturedPackages();
+          setPackages(data);
+          setLoading(false);
+        } catch (error) {
+          console.error('Error fetching packages:', error);
+          setLoading(false);
+        }
+      };
+  
+      fetchPackages();
+    }, []);
+  
+  return (
+    <>
+    
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          packages.map((packageInfo) => <PackageCard key={packageInfo._id} packageInfo={packageInfo} />)
+        )}
+      
+      
       <CardPagination />
     </>
   );
 };
 
-export default page;
+export default Page;

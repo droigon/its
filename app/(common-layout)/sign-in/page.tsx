@@ -28,6 +28,8 @@ interface IProps {
       redirect: true,
       callbackUrl: "/personal-info",
     });
+
+    console.log(result)
   };
 
   return (

@@ -44,7 +44,7 @@ const Hero = () => {
               Explore the World with
               <span className="text-primary"> Bless Tours</span>
             </h1>
-            <p className="mb-5 text-xl">
+            <p className="mb-5 text-xl text-white">
               Welcome to Bless Tours, your one-stop-shop for adventure, culture,
               and unforgettable experiences!
             </p>

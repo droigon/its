@@ -86,13 +86,7 @@ const Footer = () => {
                     Terms & Conditions
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    href="blog-grid"
-                    className="hover:text-[var(--secondary)] duration-300">
-                    Blog
-                  </Link>
-                </li>
+                
               </ul>
             </div>
             <div className="col-span-12 md:col-span-6 xl:col-span-3">
@@ -128,23 +122,7 @@ const Footer = () => {
             </div>
             <div className="col-span-12 md:col-span-6 xl:col-span-3">
               <h4 className="text-2xl font-semibold mb-6"> Newsletter </h4>
-              <p className="mb-6 clr-neutral-30">
-                Subscribe our newsletter to get our latest update & news
-              </p>
-              <div className="p-2 rounded-full border border-neutral-200">
-                <form action="#" className="flex items-center">
-                  <input
-                    type="text"
-                    placeholder="Email address"
-                    className="w-full border-0 bg-transparent clr-neutral-30 px-3 py-2 ::placeholder-neutral-30 focus:outline-none"
-                  />
-                  <button
-                    type="button"
-                    className="grid place-content-center px-6 py-3 rounded-full bg-[var(--tertiary)]  border-0">
-                    <PaperPlane />
-                  </button>
-                </form>
-              </div>
+              
             </div>
           </div>
         </div>

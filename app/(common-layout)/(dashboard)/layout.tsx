@@ -40,7 +40,7 @@ export default function RootLayout({
     return result;
   };
 
-  const heading = convertToTitleCase(path);
+  //const heading = convertToTitleCase(path);
 
   return (
     <>
@@ -48,7 +48,7 @@ export default function RootLayout({
         <div className="container">
           <div className="grid grid-cols-12 gap-4 items-center">
             <div className="col-span-12 md:col-span-6">
-              <h1 className="h2 text-white mb-3"> {heading} </h1>
+              <h1 className="h2 text-white mb-3">  </h1>
               <ul className="flex items-center gap-2">
                 <li>
                   <Link
@@ -64,7 +64,7 @@ export default function RootLayout({
                   <Link
                     href="#"
                     className="link inline-block text-[var(--tertiary)]">
-                    {heading}
+                    
                   </Link>
                 </li>
               </ul>

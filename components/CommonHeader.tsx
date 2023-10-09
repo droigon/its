@@ -29,7 +29,7 @@ const CommonHeader = () => {
         <div className="lg:order-2 flex gap-2 items-center">
           
           
-        <Link href="/sign-in" className="btn-primary-lg hidden md:block">
+        <Link href="/user/personal-info" className="btn-primary-lg hidden md:block">
             Get Started
           </Link>
           

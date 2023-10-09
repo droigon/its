@@ -73,15 +73,40 @@ const tooltipStyle = {
   color: "#fff",
   borderRadius: "10px",
 };
-export default async function Page({promise}) {
-//const async Page = (promise) => {
-  const [dateRange, setDateRange] = useState<[Date | null, Date | null]>([
-    null,
-    null,
-  ]);
+
+type PostProps = {
+  ID: number;
+  REFUND_POLICY:string;
+  CANCELLATION_POLICY:string;
+  NAME: string;
+  DESCRIPTION: string;
+  AMOUNT: number;
+  DURATION: string;
+  INCLUSION: string[];
+  EXCLUSION: string[];
+  ITENARY: { name:string,description:string,location:string,title:string, _id: number; }[];
+  
+};
+
+
+const Page: React.FC<{ promise: Promise<PostProps> }> = ({ promise }) => {
+  const [dateRange, setDateRange] = useState<[Date | null, Date | null]>([null, null]);
   const [startDate, endDate] = dateRange;
-  const posts = await promise
-  console.log("postss",posts)
+  const [post, setPost] = useState<PostProps | null>(null);
+
+  const fetchPosts = async () => {
+    try {
+      const posts = await promise;
+      //const { NAME, DESCRIPTION, PRICE } = posts;
+      setPost(posts)
+      console.log("Posts:", posts);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    }
+  };
+
+  fetchPosts();
+
   return (
     <main>
       <div className="bg-[var(--bg-2)]">
@@ -184,41 +209,9 @@ export default async function Page({promise}) {
                 <div className="bg-white rounded-2xl p-3 sm:p-4 lg:py-8 lg:px-5">
                   <div className="p-3 sm:p-4 lg:p-6 bg-[var(--bg-1)] rounded-2xl border border-neutral-40 mb-6 lg:mb-10">
                     <div className="flex items-center justify-between flex-wrap gap-3 mb-8">
-                      <h2 className="h2 m-0"> {posts.NAME} </h2>
+                      <h2 className="h2 m-0"> {post?.NAME} </h2>
                       <ul className="flex gap-3 items-center">
-                        <li>
-                          <span className="inline-block clr-neutral-600">
-                            Share
-                          </span>
-                        </li>
-                        <li>
-                          <Link
-                            href="#"
-                            className="link w-8 h-8 grid place-content-center bg-[var(--primary-light)] text-primary rounded-full hover:bg-primary hover:text-white">
-                            <i className="lab text-xl la-facebook-f"></i>
-                          </Link>
-                        </li>
-                        <li>
-                          <Link
-                            href="#"
-                            className="link w-8 h-8 grid place-content-center bg-[var(--primary-light)] text-primary rounded-full hover:bg-primary hover:text-white">
-                            <i className="lab text-xl la-twitter"></i>
-                          </Link>
-                        </li>
-                        <li>
-                          <Link
-                            href="#"
-                            className="link w-8 h-8 grid place-content-center bg-[var(--primary-light)] text-primary rounded-full hover:bg-primary hover:text-white">
-                            <i className="lab text-xl la-instagram"></i>
-                          </Link>
-                        </li>
-                        <li>
-                          <Link
-                            href="#"
-                            className="link w-8 h-8 grid place-content-center bg-[var(--primary-light)] text-primary rounded-full hover:bg-primary hover:text-white">
-                            <i className="lab text-xl la-linkedin-in"></i>
-                          </Link>
-                        </li>
+                        
                       </ul>
                     </div>
                     <ul className="columns-1 md:columns-2 lg:columns-3 pt-4 border-t border-dashed gap-md-0">
@@ -249,7 +242,7 @@ export default async function Page({promise}) {
                       <li className="py-2">
                         <p className="mb-0">
                           Duration:
-                          <span className="text-primary">5 Days, 4 Nights</span>
+                          <span className="text-primary">{post?.DURATION}</span>
                         </p>
                       </li>
                       <li className="py-2">
@@ -260,27 +253,15 @@ export default async function Page({promise}) {
                           </span>
                         </div>
                       </li>
-                      <li className="py-2">
-                        <div className="flex items-center gap-1">
-                          <StarIcon className="w-5 h-5 text-[var(--tertiary)]" />
-                          <span className="font-semibold">4.9</span>
-                        </div>
-                      </li>
+                      
                     </ul>
                   </div>
                   <div className="p-3 sm:p-4 lg:p-6 bg-[var(--bg-1)] rounded-2xl border border-neutral-40 mb-6 lg:mb-10">
                     <h4 className="mb-5 text-2xl font-semibold"> Overview </h4>
                     <p className="mb-5 clr-neutral-500">
-                      {posts.DESCRIPTION}
+                      {post?.DESCRIPTION}
                     </p>
-                    <Link
-                      href="#"
-                      className="link flex items-center gap-2 text-primary">
-                      <span className="font-semibold inline-block">
-                        Read More
-                      </span>
-                      <ArrowRightIcon className="w-5 h-5" />
-                    </Link>
+                    
                   </div>
                   <div className="p-3 sm:p-4 lg:p-6 bg-[var(--bg-1)] rounded-2xl border border-neutral-40 mb-6 lg:mb-10">
                     <h4 className="mb-5 text-2xl font-semibold">
@@ -381,148 +362,144 @@ export default async function Page({promise}) {
                   <div className="p-3 sm:p-4 lg:p-6 bg-[var(--bg-1)] rounded-2xl border border-neutral-40 mb-6 lg:mb-10">
                     <h4 className="mb-6 text-2xl font-semibold"> Itinerary </h4>
                     <ul className="flex flex-col gap-6">
-                      {itineraryData.map(
-                        ({ id, day, desc, img, location, name, title }) => (
-                          <li
-                            key={id}
-                            className="relative md:before:absolute before:top-[120px] before:bottom-[-14px] before:left-[52px] before:w-[1px] md:before:border-l before:border-dashed before:border-[var(--primary)]">
-                            <div className="flex flex-col md:flex-row gap-6 md:gap-10">
-                              <div className="grid place-content-center ml-3 md:ml-0 relative w-28 h-28 rounded-full bg-primary after:scale-[1.18] text-white shrink-0 after:w-full after:h-full after:absolute after:border-dashed after:border after:border-[var(--primary)] after:rounded-full">
-                                <div className="text-center">
-                                  <p className="text-lg mb-0"> Day </p>
-                                  <h2 className="mb-0 text-white"> {day} </h2>
-                                </div>
-                              </div>
-                              <div className="flex-grow rounded-2xl bg-white shadow-lg p-3 sm:p-4 lg:p-6">
-                                <h5 className="font-semibold text-xl">
-                                  {" "}
-                                  {name}
-                                </h5>
-                                <p className="mb-0 clr-neutral-500">
-                                  {location}
-                                </p>
-                                <div className="border border-dashed my-6"></div>
-                                <div className="flex flex-col lg:flex-row md:items-center gap-5">
-                                  <Link
-                                    href="tour-listing-details"
-                                    className="link block shrink-0 w-full lg:w-auto">
-                                    <Image
-                                      width={241}
-                                      height={153}
-                                      src={img}
-                                      alt="image"
-                                      className=" rounded-2xl w-full object-fit-cover"
-                                    />
-                                  </Link>
-                                  <div className="flex-grow">
-                                    <Link
-                                      href="tour-listing-details"
-                                      className="link block text-lg text-[var(--neutral-700)] hover:text-primary mb-2">
-                                      {title}
-                                    </Link>
-                                    <p className="mb-0 clr-neutral-500 text-sm">
-                                      {desc}
-                                    </p>
-                                  </div>
-                                </div>
-                                <div className="border border-dashed my-6"></div>
-                                <div className="flex items-center flex-wrap gap-4">
-                                  <p className="mb-0 text-lg clr-neutral-500 font-medium">
-                                    Include Service -
-                                  </p>
-                                  <ul className="flex items-center flex-wrap gap-3">
-                                    <li>
-                                      <div
-                                        data-tooltip-id="parking"
-                                        className="grid place-content-center w-10 h-10 rounded-full bg-[var(--bg-2)] text-primary">
-                                        <Image
-                                          width={28}
-                                          height={28}
-                                          src="/img/icon-car-parking.png"
-                                          alt="image"
-                                          className=" w-7 h-7 object-fit-contain"
-                                        />
-                                      </div>
-                                    </li>
-                                    <li>
-                                      <div
-                                        data-tooltip-id="restaurent"
-                                        className="grid place-content-center w-10 h-10 rounded-full bg-[var(--bg-2)] text-primary">
-                                        <Image
-                                          width={28}
-                                          height={28}
-                                          src="/img/icon-breakfast.png"
-                                          alt="image"
-                                          className=" w-7 h-7 object-fit-contain"
-                                        />
-                                      </div>
-                                    </li>
-                                    <li>
-                                      <div
-                                        data-tooltip-id="room"
-                                        className="grid place-content-center w-10 h-10 rounded-full bg-[var(--bg-2)] text-primary">
-                                        <Image
-                                          width={28}
-                                          height={28}
-                                          src="/img/icon-room-service.png"
-                                          alt="image"
-                                          className=" w-7 h-7 object-fit-contain"
-                                        />
-                                      </div>
-                                    </li>
-                                    <li>
-                                      <div
-                                        data-tooltip-id="fitness"
-                                        className="grid place-content-center w-10 h-10 rounded-full bg-[var(--bg-2)] text-primary">
-                                        <Image
-                                          width={28}
-                                          height={28}
-                                          src="/img/icon-fitness.png"
-                                          alt="image"
-                                          className=" w-7 h-7 object-fit-contain"
-                                        />
-                                      </div>
-                                    </li>
-                                    <Tooltip
-                                      id="parking"
-                                      style={tooltipStyle}
-                                      offset={7}
-                                      content="Parking"
-                                    />
-                                    <Tooltip
-                                      id="restaurent"
-                                      style={tooltipStyle}
-                                      offset={7}
-                                      content="Restaurent"
-                                    />
-                                    <Tooltip
-                                      id="room"
-                                      style={tooltipStyle}
-                                      offset={7}
-                                      content="Room Service"
-                                    />
-                                    <Tooltip
-                                      id="fitness"
-                                      style={tooltipStyle}
-                                      offset={7}
-                                      content="Fitness"
-                                    />
-                                  </ul>
-                                </div>
-                              </div>
+                    {post?.ITENARY.map((tag, index) => (
+                     
+
+                      <li
+                      key={index}
+                      className="relative md:before:absolute before:top-[120px] before:bottom-[-14px] before:left-[52px] before:w-[1px] md:before:border-l before:border-dashed before:border-[var(--primary)]">
+                      <div className="flex flex-col md:flex-row gap-6 md:gap-10">
+                        <div className="grid place-content-center ml-3 md:ml-0 relative w-28 h-28 rounded-full bg-primary after:scale-[1.18] text-white shrink-0 after:w-full after:h-full after:absolute after:border-dashed after:border after:border-[var(--primary)] after:rounded-full">
+                          <div className="text-center">
+                            <p className="text-lg mb-0"> Day </p>
+                            <h2 className="mb-0 text-white"> {index}</h2>
+                          </div>
+                        </div>
+                        <div className="flex-grow rounded-2xl bg-white shadow-lg p-3 sm:p-4 lg:p-6">
+                          <h5 className="font-semibold text-xl">
+                            {" "}
+                            {tag.name}
+                          </h5>
+                          <p className="mb-0 clr-neutral-500">
+                            {tag.location}
+                          </p>
+                          <div className="border border-dashed my-6"></div>
+                          <div className="flex flex-col lg:flex-row md:items-center gap-5">
+                            <Link
+                              href="tour-listing-details"
+                              className="link block shrink-0 w-full lg:w-auto">
+                              <Image
+                                width={241}
+                                height={153}
+                                src="/img/itinerary-img-3.jpg"
+                                alt="image"
+                                className=" rounded-2xl w-full object-fit-cover"
+                              />
+                            </Link>
+                            <div className="flex-grow">
+                              <Link
+                                href="tour-listing-details"
+                                className="link block text-lg text-[var(--neutral-700)] hover:text-primary mb-2">
+                                {tag.title}
+                              </Link>
+                              <p className="mb-0 clr-neutral-500 text-sm">
+                                {tag.description}
+                              </p>
                             </div>
-                          </li>
-                        )
-                      )}
+                          </div>
+                          <div className="border border-dashed my-6"></div>
+                          <div className="flex items-center flex-wrap gap-4">
+                            <p className="mb-0 text-lg clr-neutral-500 font-medium">
+                              Include Service -
+                            </p>
+                            <ul className="flex items-center flex-wrap gap-3">
+                              <li>
+                                <div
+                                  data-tooltip-id="parking"
+                                  className="grid place-content-center w-10 h-10 rounded-full bg-[var(--bg-2)] text-primary">
+                                  <Image
+                                    width={28}
+                                    height={28}
+                                    src="/img/icon-car-parking.png"
+                                    alt="image"
+                                    className=" w-7 h-7 object-fit-contain"
+                                  />
+                                </div>
+                              </li>
+                              <li>
+                                <div
+                                  data-tooltip-id="restaurent"
+                                  className="grid place-content-center w-10 h-10 rounded-full bg-[var(--bg-2)] text-primary">
+                                  <Image
+                                    width={28}
+                                    height={28}
+                                    src="/img/icon-breakfast.png"
+                                    alt="image"
+                                    className=" w-7 h-7 object-fit-contain"
+                                  />
+                                </div>
+                              </li>
+                              <li>
+                                <div
+                                  data-tooltip-id="room"
+                                  className="grid place-content-center w-10 h-10 rounded-full bg-[var(--bg-2)] text-primary">
+                                  <Image
+                                    width={28}
+                                    height={28}
+                                    src="/img/icon-room-service.png"
+                                    alt="image"
+                                    className=" w-7 h-7 object-fit-contain"
+                                  />
+                                </div>
+                              </li>
+                              <li>
+                                <div
+                                  data-tooltip-id="fitness"
+                                  className="grid place-content-center w-10 h-10 rounded-full bg-[var(--bg-2)] text-primary">
+                                  <Image
+                                    width={28}
+                                    height={28}
+                                    src="/img/icon-fitness.png"
+                                    alt="image"
+                                    className=" w-7 h-7 object-fit-contain"
+                                  />
+                                </div>
+                              </li>
+                              <Tooltip
+                                id="parking"
+                                style={tooltipStyle}
+                                offset={7}
+                                content="Parking"
+                              />
+                              <Tooltip
+                                id="restaurent"
+                                style={tooltipStyle}
+                                offset={7}
+                                content="Restaurent"
+                              />
+                              <Tooltip
+                                id="room"
+                                style={tooltipStyle}
+                                offset={7}
+                                content="Room Service"
+                              />
+                              <Tooltip
+                                id="fitness"
+                                style={tooltipStyle}
+                                offset={7}
+                                content="Fitness"
+                              />
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      </li>
+
+                    ))}
+                   
+                     
                     </ul>
-                    <Link
-                      href="#"
-                      className="link flex items-center gap-2 text-primary mt-8">
-                      <span className="font-semibold inline-block">
-                        Book Now
-                      </span>
-                      <ArrowRightIcon className="w-5 h-5" />
-                    </Link>
+                    
                   </div>
                   <div className="p-3 sm:p-4 lg:p-6 bg-[var(--bg-1)] rounded-2xl border border-neutral-40 mb-6 lg:mb-10">
                     <h4 className="mb-0 text-2xl font-semibold">
@@ -532,141 +509,39 @@ export default async function Page({promise}) {
                     <div className="border border-dashed my-5"></div>
                     <h6 className="mb-4 font-semibold"> Inclusions </h6>
                     <ul className="flex flex-col gap-4 mb-10">
-                      <li>
+                    {post?.INCLUSION?.map((inclusion, index) => (
+                      
+                      <li  key={index}>
                         <div className="flex items-center gap-2">
                           <div className="w-6 h-6 grid place-content-center rounded-full shrink-0 bg-[var(--primary-light)]">
                             <i className="las la-check text-lg text-primary"></i>
                           </div>
                           <span className="inline-block">
-                            Comfortable stay for 4 nights in your preferred
-                            category Hotels
+                          {inclusion}
                           </span>
                         </div>
                       </li>
-                      <li>
-                        <div className="flex items-center gap-2">
-                          <div className="w-6 h-6 grid place-content-center rounded-full shrink-0 bg-[var(--primary-light)]">
-                            <i className="las la-check text-lg text-primary"></i>
-                          </div>
-                          <span className="inline-block">
-                            Professional English speaking guide to help you
-                            explore the cities
-                          </span>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="flex items-center gap-2">
-                          <div className="w-6 h-6 grid place-content-center rounded-full shrink-0 bg-[var(--primary-light)]">
-                            <i className="las la-check text-lg text-primary"></i>
-                          </div>
-                          <span className="inline-block">
-                            Breakfast is included as mentioned in Itinerary.
-                          </span>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="flex items-center gap-2">
-                          <div className="w-6 h-6 grid place-content-center rounded-full shrink-0 bg-[var(--primary-light)]">
-                            <i className="las la-check text-lg text-primary"></i>
-                          </div>
-                          <span className="inline-block">
-                            Per Peron rate on twin sharing basis
-                          </span>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="flex items-center gap-2">
-                          <div className="w-6 h-6 grid place-content-center rounded-full shrink-0 bg-[var(--primary-light)]">
-                            <i className="las la-check text-lg text-primary"></i>
-                          </div>
-                          <span className="inline-block">
-                            Entrance Tickets to Genting Indoor Theme Park
-                          </span>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="flex items-center gap-2">
-                          <div className="w-6 h-6 grid place-content-center rounded-full shrink-0 bg-[var(--primary-light)]">
-                            <i className="las la-check text-lg text-primary"></i>
-                          </div>
-                          <span className="inline-block">
-                            All Tours & Transfers on Seat In Coach Basis
-                          </span>
-                        </div>
-                      </li>
+                    ))}
+                      
                     </ul>
                     <h6 className="mb-4 font-semibold"> Exclusions </h6>
                     <ul className="flex flex-col gap-4 mb-10">
-                      <li>
-                        <div className="flex items-center gap-2">
-                          <div className="w-6 h-6 grid place-content-center rounded-full shrink-0 bg-[#FFF9ED]">
-                            <i className="las la-times text-xl text-[#9C742B]"></i>
-                          </div>
-                          <span className="inline-block">
-                            Lunch and dinner are not included in plans
-                          </span>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="flex items-center gap-2">
-                          <div className="w-6 h-6 grid place-content-center rounded-full shrink-0 bg-[#FFF9ED]">
-                            <i className="las la-times text-xl text-[#9C742B]"></i>
-                          </div>
-                          <span className="inline-block">
-                            Any other services not specifically mentioned in the
-                            inclusions
-                          </span>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="flex items-center gap-2">
-                          <div className="w-6 h-6 grid place-content-center rounded-full shrink-0 bg-[#FFF9ED]">
-                            <i className="las la-times text-xl text-[#9C742B]"></i>
-                          </div>
-                          <span className="inline-block">
-                            Medical and Travel insurance
-                          </span>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="flex items-center gap-2">
-                          <div className="w-6 h-6 grid place-content-center rounded-full shrink-0 bg-[#FFF9ED]">
-                            <i className="las la-times text-xl text-[#9C742B]"></i>
-                          </div>
-                          <span className="inline-block">
-                            Airfare is not included
-                          </span>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="flex items-center gap-2">
-                          <div className="w-6 h-6 grid place-content-center rounded-full shrink-0 bg-[#FFF9ED]">
-                            <i className="las la-times text-xl text-[#9C742B]"></i>
-                          </div>
-                          <span className="inline-block">
-                            Early Check-In & Late Check-Out
-                          </span>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="flex items-center gap-2">
-                          <div className="w-6 h-6 grid place-content-center rounded-full shrink-0 bg-[#FFF9ED]">
-                            <i className="las la-times text-xl text-[#9C742B]"></i>
-                          </div>
-                          <span className="inline-block">
-                            Anything which is not specified in Inclusions
-                          </span>
-                        </div>
-                      </li>
-                    </ul>
-                    <Link
-                      href="#"
-                      className="link flex items-center gap-2 text-primary mt-8">
-                      <span className="font-semibold inline-block">
-                        Read More
+                    {post?.INCLUSION?.map((inclusion, index) => (
+                      <li  key={index}>
+                      <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 grid place-content-center rounded-full shrink-0 bg-[#FFF9ED]">
+                        <i className="las la-times text-xl text-[#9C742B]"></i>
+                      </div>
+                      <span className="inline-block">
+                        Lunch and dinner are not included in plans
                       </span>
-                      <ArrowRightIcon className="w-5 h-5" />
-                    </Link>
+                    </div>
+                      </li>
+                      ))}
+                        
+                     
+                    </ul>
+                   
                   </div>
                   <div className="p-3 sm:p-4 lg:p-6 bg-[var(--bg-1)] rounded-2xl border border-neutral-40 mb-6 lg:mb-10">
                     <h4 className="mb-0 text-2xl font-semibold">
@@ -679,369 +554,20 @@ export default async function Page({promise}) {
                       Confirmation Policy :{" "}
                     </h6>
                     <p className="mb-4">
-                      The customer receives a confirmation voucher via email
-                      within 24 hours of successful booking.
+                     {post?.CANCELLATION_POLICY}
                     </p>
-                    <p className="mb-4">
-                      In case the preferred slots are unavailable, an alternate
-                      schedule of the customer’s preference will be arranged and
-                      a new confirmation voucher will be sent via email.
-                    </p>
-                    <p className="mb-10">
-                      Alternatively, the customer may choose to cancel their
-                      booking before confirmation and a full refund will be
-                      processed.
-                    </p>
-                    <h6 className="mb-4 font-semibold">
-                      {" "}
-                      Cancellation Policy :{" "}
-                    </h6>
-                    <p className="mb-4">
-                      <span className="font-medium clr-neutral-900">
-                        10 days :
-                      </span>
-                      100%
-                    </p>
-                    <p className="mb-4">
-                      <span className="font-medium clr-neutral-900">
-                        10 to 15 days :
-                      </span>
-                      75% + Non Refundable Component
-                    </p>
-                    <p className="mb-4">
-                      <span className="font-medium clr-neutral-900">
-                        15 to 30 days :
-                      </span>
-                      30% + Non Refundable Component
-                    </p>
-                    <p className="mb-4">
-                      <span className="font-medium clr-neutral-900">
-                        10Hotel / Air :
-                      </span>
-                      100% in case of non-refundable ticket / Hotel Room
-                    </p>
-                    <p className="mb-10">
-                      <span className="font-medium clr-neutral-900">
-                        10Cruise / Visa :
-                      </span>
-                      On Actuals
-                    </p>
+                    
+                 
                     <h6 className="mb-4 font-semibold"> Refund Policy : </h6>
                     <p className="mb-0">
-                      The applicable refund amount will be processed within 10
-                      business days. All applicable refunds will be done in the
-                      traveler&apos;s banks wallet as E-cash.
+                     {post?.REFUND_POLICY}
                     </p>
                   </div>
                 </div>
               </div>
-              <div className="p-6 bg-white rounded-2xl my-10">
-                <div className="flex items-center justify-between gap-4 flex-wrap">
-                  <Link
-                    href="#"
-                    className="link flex items-center clr-neutral-500 hover:text-primary gap-1 order-1">
-                    <ArrowLongLeftIcon className="w-5 h-5" />
-                    <span className="inline-block font-semibold">
-                      Prev Tour
-                    </span>
-                  </Link>
-                  <ul className="flex flex-wrap gap-3 justify-center order-3 flex-grow md:order-2">
-                    <li>
-                      <Link
-                        href="#"
-                        className="link grid place-content-center w-9 h-9 rounded-full bg-[var(--primary-light)] text-primary hover:bg-primary hover:text-white">
-                        <i className="lab text-xl la-facebook-f"></i>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href="#"
-                        className="link grid place-content-center w-9 h-9 rounded-full bg-[var(--primary-light)] text-primary hover:bg-primary hover:text-white">
-                        <i className="lab text-xl la-twitter"></i>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href="#"
-                        className="link grid place-content-center w-9 h-9 rounded-full bg-[var(--primary-light)] text-primary hover:bg-primary hover:text-white">
-                        <i className="lab text-xl la-linkedin-in"></i>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href="#"
-                        className="link grid place-content-center w-9 h-9 rounded-full bg-[var(--primary-light)] text-primary hover:bg-primary hover:text-white">
-                        <i className="lab text-xl la-dribbble"></i>
-                      </Link>
-                    </li>
-                  </ul>
-                  <Link
-                    href="#"
-                    className="link flex items-center clr-neutral-500 hover:text-primary gap-1 order-2">
-                    <span className="inline-block font-semibold">
-                      Next Tour
-                    </span>
-                    <ArrowLongRightIcon className="w-5 h-5" />
-                  </Link>
-                </div>
-              </div>
+              
 
-              <div className="bg-white rounded-2xl p-3 sm:p-4 lg:py-8 lg:px-5 mb-10 lg:mb-14">
-                <div className="flex items-center gap-4 justify-between flex-wrap mb-10">
-                  <div className="flex items-center gap-2">
-                    <StarIcon className="w-5 h-5 text-[var(--tertiary)]" />
-                    <h3 className="mb-0 h3"> 4.7 (21 reviews) </h3>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <p className="mb-0 clr-neutral-500 shrink-0"> Sort By : </p>
-                    <select className="w-full border bg-transparent px-5 py-3 focus:outline-none rounded-full">
-                      <option>Latest</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
-                    </select>
-                  </div>
-                </div>
-                <div className="bg-[var(--bg-)] rounded-2xl p-3 sm:p-4 lg:p-6 mb-8">
-                  <div className="flex items-center flex-wrap justify-between gap-4 ">
-                    <div className="flex gap-5 items-center">
-                      <div className="w-15 h-15 shrink-0 rounded-full overflow-hidden">
-                        <Image
-                          width={60}
-                          height={60}
-                          src="/img/user-1.jpg"
-                          alt="image"
-                          className=" w-full h-full object-fit-cover"
-                        />
-                      </div>
-                      <div className="flex-grow">
-                        <h5 className="mb-1 font-semibold"> Kiss Laura </h5>
-                        <p className="mb-0 clr-neutral-500">
-                          {" "}
-                          Product Designer{" "}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="text-sm-end">
-                      <p className="mb-1"> 09:01 am </p>
-                      <p className="mb-0"> Mar 03, 2023 </p>
-                    </div>
-                  </div>
-                  <div className="border border-dashed my-6"></div>
-                  <div className="flex gap-1 mb-3">
-                    <StarIcon className="w-5 h-5 text-[var(--tertiary)]" />
-                    <StarIcon className="w-5 h-5 text-[var(--tertiary)]" />
-                    <StarIcon className="w-5 h-5 text-[var(--tertiary)]" />
-                    <StarIcon className="w-5 h-5 text-[var(--tertiary)]" />
-                    <StarIcon className="w-5 h-5 text-[var(--tertiary)]" />
-                  </div>
-                  <p className="mb-0 clr-neutral-500">
-                    I highly recommend [real estate agent&apos;s name] as a
-                    professional and knowledgeable real estate agent. They
-                    provided valuable guidance throughout the selling process
-                  </p>
-                  <div className="border border-dashed my-6"></div>
-                  <div className="flex flex-wrap items-center gap-10 mb-6">
-                    <div className="flex items-center gap-2 text-primary">
-                      <HandThumbUpIcon className="w-5 h-5" />
-                      <span className="inline-block"> 178 </span>
-                    </div>
-                    <div className="flex items-center gap-2 text-primary">
-                      <ChatBubbleLeftRightIcon className="w-5 h-5" />
-                      <span className="inline-block"> Reply </span>
-                    </div>
-                  </div>
-                  <div className="flex gap-5 items-center">
-                    <div className="w-15 h-15 shrink-0 rounded-full overflow-hidden">
-                      <Image
-                        width={60}
-                        height={60}
-                        src="/img/user-2.jpg"
-                        alt="image"
-                        className=" w-full h-full object-fit-cover"
-                      />
-                    </div>
-                    <div className="flex-grow">
-                      <input
-                        className="border text-base py-4 px-5 rounded-full focus:outline-none w-full"
-                        type="text"
-                        placeholder="Join the discussion"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-[var(--bg-)] rounded-2xl p-3 sm:p-4 lg:p-6 mb-8">
-                  <div className="flex items-center flex-wrap justify-between gap-4">
-                    <div className="flex gap-5 items-center">
-                      <div className="w-15 h-15 shrink-0 rounded-full overflow-hidden">
-                        <Image
-                          width={60}
-                          height={60}
-                          src="/img/user-3.jpg"
-                          alt="image"
-                          className=" w-full h-full object-fit-cover"
-                        />
-                      </div>
-                      <div className="flex-grow">
-                        <h5 className="mb-1 font-semibold"> Kristin Watson </h5>
-                        <p className="mb-0 clr-neutral-500">
-                          {" "}
-                          Product Designer{" "}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="text-sm-end">
-                      <p className="mb-1"> 09:01 am </p>
-                      <p className="mb-0"> Mar 03, 2023 </p>
-                    </div>
-                  </div>
-                  <div className="border border-dashed my-6"></div>
-                  <div className="flex gap-1 mb-3">
-                    <StarIcon className="w-5 h-5 text-[var(--tertiary)]" />
-                    <StarIcon className="w-5 h-5 text-[var(--tertiary)]" />
-                    <StarIcon className="w-5 h-5 text-[var(--tertiary)]" />
-                    <StarIcon className="w-5 h-5 text-[var(--tertiary)]" />
-                    <StarIcon className="w-5 h-5 text-[var(--tertiary)]" />
-                  </div>
-                  <p className="mb-0 clr-neutral-500">
-                    I highly recommend [real estate agent&apos;s name] as a
-                    professional and knowledgeable real estate agent. They
-                    provided valuable guidance throughout the selling process
-                  </p>
-                  <div className="border border-dashed my-6"></div>
-                  <div className="flex flex-wrap items-center gap-10">
-                    <div className="flex items-center gap-2 text-primary">
-                      <HandThumbUpIcon className="w-5 h-5" />
-                      <span className="inline-block"> 178 </span>
-                    </div>
-                    <div className="flex items-center gap-2 text-primary">
-                      <ChatBubbleLeftRightIcon className="w-5 h-5" />
-                      <span className="inline-block"> Reply </span>
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-[var(--bg-)] rounded-2xl p-3 sm:p-4 lg:p-6 mb-8">
-                  <div className="flex items-center flex-wrap justify-between gap-4">
-                    <div className="flex gap-5 items-center">
-                      <div className="w-15 h-15 shrink-0 rounded-full overflow-hidden">
-                        <Image
-                          width={60}
-                          height={60}
-                          src="/img/user-4.jpg"
-                          alt="image"
-                          className=" w-full h-full object-fit-cover"
-                        />
-                      </div>
-                      <div className="flex-grow">
-                        <h5 className="mb-1 font-semibold">
-                          {" "}
-                          Marvin McKinney{" "}
-                        </h5>
-                        <p className="mb-0 clr-neutral-500">
-                          {" "}
-                          Product Designer{" "}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="text-sm-end">
-                      <p className="mb-1"> 09:01 am </p>
-                      <p className="mb-0"> Mar 03, 2023 </p>
-                    </div>
-                  </div>
-                  <div className="border border-dashed my-6"></div>
-                  <div className="flex gap-1 mb-3">
-                    <StarIcon className="w-5 h-5 text-[var(--tertiary)]" />
-                    <StarIcon className="w-5 h-5 text-[var(--tertiary)]" />
-                    <StarIcon className="w-5 h-5 text-[var(--tertiary)]" />
-                    <StarIcon className="w-5 h-5 text-[var(--tertiary)]" />
-                    <StarIcon className="w-5 h-5 text-[var(--tertiary)]" />
-                  </div>
-                  <p className="mb-0 clr-neutral-500">
-                    I highly recommend [real estate agent&apos;s name] as a
-                    professional and knowledgeable real estate agent. They
-                    provided valuable guidance throughout the selling process
-                  </p>
-                  <div className="border border-dashed my-6"></div>
-                  <div className="flex flex-wrap items-center gap-10">
-                    <div className="flex items-center gap-2 text-primary">
-                      <HandThumbUpIcon className="w-5 h-5" />
-                      <span className="inline-block"> 178 </span>
-                    </div>
-                    <div className="flex items-center gap-2 text-primary">
-                      <ChatBubbleLeftRightIcon className="w-5 h-5" />
-                      <span className="inline-block"> Reply </span>
-                    </div>
-                  </div>
-                </div>
-                <Link
-                  href="#"
-                  className="featured-tab link font-semibold clr-primary-400 inline-block py-3 px-6 bg-[var(--primary-light)] hover:bg-primary hover:text-white rounded-full active">
-                  See All Reviews
-                </Link>
-              </div>
-
-              <div className="mb-10 lg:mb-14">
-                <div className="bg-white rounded-2xl p-3 sm:p-4 lg:py-8 lg:px-5">
-                  <h4 className="mb-0 text-2xl font-semibold">
-                    Write a review
-                  </h4>
-                  <div className="border border-dashed my-6"></div>
-                  <p className="text-xl font-medium mb-2">Rating *</p>
-                  <div className="flex gap-1 mb-3">
-                    <StarIcon className="w-5 h-5 text-[var(--tertiary)]" />
-                    <StarIcon className="w-5 h-5 text-[var(--tertiary)]" />
-                    <StarIcon className="w-5 h-5 text-[var(--tertiary)]" />
-                    <StarIcon className="w-5 h-5 text-[var(--tertiary)]" />
-                    <StarIcon className="w-5 h-5 text-[var(--tertiary)]" />
-                  </div>
-                  <form action="#">
-                    <div className="grid grid-cols-12 gap-4">
-                      <div className="col-span-12">
-                        <label
-                          htmlFor="review-name"
-                          className="text-xl font-medium block mb-3">
-                          Name *
-                        </label>
-                        <input
-                          type="text"
-                          className="w-full bg-[var(--bg-1)] border border-neutral-40 rounded-full py-3 px-5 focus:outline-none"
-                          placeholder="Enter Name.."
-                          id="review-name"
-                        />
-                      </div>
-                      <div className="col-span-12">
-                        <label
-                          htmlFor="review-email"
-                          className="text-xl font-medium block mb-3">
-                          Email *
-                        </label>
-                        <input
-                          type="text"
-                          className="w-full bg-[var(--bg-1)] border border-neutral-40 rounded-full py-3 px-5 focus:outline-none"
-                          placeholder="Enter Email.."
-                          id="review-email"
-                        />
-                      </div>
-                      <div className="col-span-12">
-                        <label
-                          htmlFor="review-review"
-                          className="text-xl font-medium block mb-3">
-                          Review *
-                        </label>
-                        <textarea
-                          id="review-review"
-                          rows={5}
-                          className="bg-[var(--bg-1)] border rounded-2xl py-3 px-5 w-full focus:outline-none"></textarea>
-                      </div>
-                      <div className="col-span-12">
-                        <Link href="#" className="btn-primary">
-                          Submit Review
-                        </Link>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
+              
             </div>
 
             <div className="col-span-12 xl:col-span-4">
@@ -1052,7 +578,7 @@ export default async function Page({promise}) {
                     <div className="flex gap-3 items-center">
                       <i className="las la-tag text-2xl"></i>
                       <p className="mb-0"> From </p>
-                      <h3 className="h3 mb-0"> ${posts.PRICE} </h3>
+                      <h3 className="h3 mb-0"> ${post?.AMOUNT} </h3>
                     </div>
                     <i className="las la-info-circle text-2xl"></i>
                   </div>
@@ -1210,3 +736,4 @@ export default async function Page({promise}) {
 };
 
 
+export default Page;

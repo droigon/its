@@ -11,7 +11,8 @@ export default withAuth(
       return NextResponse.rewrite(
         new URL("/auth/login?message=You Are Not Authorized!", req.url)
       );
-    if (req.nextUrl.pathname.startsWith("/user") && req.nextauth.token?.user?.data?.ROLE !== "USER")
+    if (req.nextUrl.pathname.startsWith("/user") &&  (req.nextauth.token?.user as any).data && // Use type assertion here
+        (req.nextauth.token?.user as any).data.ROLE !== "USER")
       return NextResponse.rewrite(
         new URL("/auth/login?message=You Are Not Authorized!", req.url)
       );
