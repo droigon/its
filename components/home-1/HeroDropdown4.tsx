@@ -4,8 +4,10 @@ import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import { CardIcon } from "@/public/data/icons";
 
-export default function HeroDropdown4() {
-  const [value, setValue] = useState(40);
+import { SearchBarFacturerProps } from "types";
+
+//export default function HeroDropdown4() {
+  const HeroDropdown4 = ({ value, setValue }: SearchBarFacturerProps) => {
 
   return (
     <div className="text-left w-full md:w-[48%] xl:w-[22%] relative">
@@ -32,3 +34,5 @@ export default function HeroDropdown4() {
     </div>
   );
 }
+
+export default HeroDropdown4;

@@ -9,7 +9,7 @@ export const menus = [
   
   {
     title: "Tours",
-    url: "/tour-listing-grid",
+    url: "/tours?page=1&limit=6",
   },
   {
     title: "About Us",

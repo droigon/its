@@ -24,21 +24,19 @@ const CommonHeader = () => {
       className={`z-30 border-y sticky hidden lg:block top-0 ${
         scrolled &&
         "z-50 shadow-md bg-white bg-opacity-70 backdrop-blur border-0"
-      } duration-300`}>
+      } duration-300`}
+    >
       <div className="container flex justify-between items-center relative px-3 py-2 lg:py-0 lg:px-0">
         <div className="lg:order-2 flex gap-2 items-center">
-          
-          
-        <Link href="/user/personal-info" className="btn-primary-lg hidden md:block">
+          <Link href="/auth/login" className="btn-primary-lg hidden md:block">
             Get Started
           </Link>
-          
         </div>
-
         <div className="lg:order-1">
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="lg:hidden border py-1 px-2 rounded-md bg-[var(--btn-bg)]">
+            className="lg:hidden border py-1 px-2 rounded-md bg-[var(--btn-bg)]"
+          >
             <i className="las la-bars text-2xl"></i>
           </button>
           <div className={`lg:block ${menuOpen ? "block" : "hidden"}`}>

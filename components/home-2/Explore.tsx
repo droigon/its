@@ -41,15 +41,14 @@ const Explore = () => {
       <div className="container z-10">
         <div className="max-w-[570px] mx-auto flex flex-col items-center text-center px-3 ">
           <SubHeadingBtn
-            text="Exploring Properties"
+            text="Exploring Tours"
             classes="bg-[var(--primary-light)]"
           />
           <h2 className="h2 mt-3 leading-tight">
-            Take a Detailed Look Inside Our Properties
+            Take a Detailed Look Inside Our Tours
           </h2>
           <p className="text-neutral-600 pt-5 pb-8 lg:pb-14">
-            Real estate can be bought, sold, leased, or rented, and can be a
-            valuable investment opportunity. The value of real estate can be...
+          Tours and travels encompass a variety of options for exploration and adventure. Travelers can embark on tours, trips, or expeditions, discovering new destinations, cultures, and experiences.
           </p>
         </div>
         <div

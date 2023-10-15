@@ -86,8 +86,7 @@ const Hero = () => {
             <div className="z-30 p-4 lg:p-5 rounded-xl shadow-lg bg-white flex items-center flex-wrap gap-3 relative max-w-[1060px] mx-auto mt-12">
               <HeroDropdown1 />
               <HeroDropdown2 />
-              <HeroDropdown3 />
-              <HeroDropdown4 />
+           
               <Link
                 href="#"
                 className="py-[14px] px-6 w-full flex justify-center xl:w-auto text-white bg-primary rounded-full">

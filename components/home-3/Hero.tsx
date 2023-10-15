@@ -34,8 +34,7 @@ const Hero = () => {
             </div>
           </div>
           <div className="flex flex-wrap gap-5 mt-6">
-            <LocationEntry placeholder="Pickup Location" />
-            <LocationEntry placeholder="Drop Location" />
+            
             <div className="w-full md:w-[48%] xl:w-[22%] flex pr-3 items-center justify-between rounded-full sm:text-sm bg-[var(--bg-1)] border">
               <DatePicker
                 selected={startDate}

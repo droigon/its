@@ -14,8 +14,7 @@ import getUsers from "@/public/data/api/req";
 
 
 const fetchFeaturedPackages = async () => {
-  console.log("fetchinf")
-  const response = await fetch('https://blesstours.onrender.com/api/v1/tours/');
+  const response = await fetch('https://blesstours.onrender.com/api/v1/tours/?page=1&limit=9');
   const data = await response.json();
   console.log("get tours",data);
   return data.data || [];
@@ -103,10 +102,8 @@ const PackageCard = ({ packageInfo }) => {
 const Featured = () => {
 
   //'const users = await getUsers()
-  const [tours, setTours] = useState([]);
-
-
-  const [data, setData] = useState(null)
+  
+  
   
   const [packages, setPackages] = useState([]);
   const [isLoading, setLoading] = useState(true);
@@ -148,7 +145,7 @@ const Featured = () => {
             <SubHeadingBtn text="Featured Package" classes="bg-white" />
             <h2 className="h2 mt-3 ">Our Best Packages</h2>
           </div>
-          <Link className="btn-outline  font-semibold" href="/tour-listing">
+          <Link className="btn-outline  font-semibold" href="/tours?page=1&limit=6">
             See All Package
           </Link>
         </div>

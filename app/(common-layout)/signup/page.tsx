@@ -6,6 +6,7 @@ import React, { useRef } from "react";
 import { useRouter } from 'next/navigation';
 import Image from "next/image";
 import Link from "next/link";
+import CheckboxCustom from "@/components/Checkbox";
 import LoginImg from "@/public/img/login-img.png";
 
 type FormInputs = {
@@ -120,6 +121,16 @@ const SignupPage = () => {
                   />
                 </div>
                 <div className="col-span-12">
+                  <ul className="flex flex-col gap-4">
+                    <li>
+                      <CheckboxCustom label=" I agree to the privacy & policy" />
+                    </li>
+                    <li>
+                      <CheckboxCustom label="I agree with all terms & conditions" />
+                    </li>
+                  </ul>
+                </div>
+                <div className="col-span-12">
                   <p className="mb-0">
                     Do you have an account?
                     <Link
@@ -129,6 +140,7 @@ const SignupPage = () => {
                     </Link>
                   </p>
                 </div>
+                
                 <div className="col-span-12">
                   <Link
                     href="#"

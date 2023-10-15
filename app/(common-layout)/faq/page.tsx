@@ -19,34 +19,10 @@ const Page = () => {
         <Tab.Group selectedIndex={tabIndex} onChange={setTabIndex}>
           <div className="grid grid-cols-12 gap-4 justify-content-xxl-between">
             <div className="col-span-12 lg:col-span-4 xxl:col-span-3">
-              <div className="bg-[var(--bg-2)] rounded-2xl p-3 md:p-6 mb-6">
-                <Tab.List>
-                  {[
-                    "01. Family House",
-                    "02. Town House",
-                    "03. Single Family",
-                    "04. Modern Studio",
-                    "05. Office",
-                    "06. Apartment",
-                  ].map((item) => (
-                    <Tab
-                      key={item}
-                      className={({ selected }) =>
-                        classNames(
-                          "focus:outline-none flex gap-2 items-center font-medium py-3 px-5",
-                          selected
-                            ? "text-white bg-primary font-medium rounded-full w-full"
-                            : ""
-                        )
-                      }>
-                      {item}
-                    </Tab>
-                  ))}
-                </Tab.List>
-              </div>
+              
               <div className="px-6 py-10 rounded-2xl faq-banner overflow-hidden relative isolate bg-[url('/img/faq-banner-img.jpg')] bg-cover bg-center bg-no-repeat after:absolute after:inset-0 after:bg-gradient-to-b after:from-[rgba(38,41,166,.4)] after:via-[rgba(38,41,166,.8)] after:to-[#2629a6] after:transform after:rotate-180  after:-translate-y-0 after:scale-x-1 after:scale-y--1 after:z-[-1] after:translate-x-0">
                 <h4 className="mb-10 text-2xl font-semibold text-white">
-                  Find Your Dream Property - Contact Us
+                  Find Your Dream Tour - Contact Us
                 </h4>
                 <Link
                   href="#"

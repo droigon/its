@@ -19,7 +19,7 @@ import CustomSwitch from "@/components/Switch";
 import { candlestick } from "@/public/data/candlestick";
 import dynamic from "next/dynamic";
 const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
-
+ 
 const Page = () => {
   const inputFileRef = useRef<HTMLInputElement>(null);
   const [imageSrc, setImageSrc] = useState<string>("/img/team-1.jpg");

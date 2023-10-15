@@ -11,6 +11,7 @@ import Link from "next/link";
 import { featuredPackage } from "@/public/data/featuredpackage";
 import CardPagination from "@/components/CardPagination";
 import React, { useState, useEffect } from 'react';
+import PaginationControls from '@/components/PaginationControls'
 
 interface PackageInfo {
   _id: string;
@@ -22,7 +23,7 @@ interface PackageInfo {
 
 interface ApiResponse {
   data: PackageInfo[];
-}
+} 
 
 const fetchFeaturedPackages = async (): Promise<PackageInfo[]> => {
   const response = await fetch('https://blesstours.onrender.com/api/v1/tours/');
@@ -110,9 +111,25 @@ const PackageCard: React.FC<{ packageInfo: PackageInfo }> = ({ packageInfo }) =>
 
 
 
-  const Page: React.FC = () => {
-    const [packages, setPackages] = useState<PackageInfo[]>([]);
-    const [isLoading, setLoading] = useState<boolean>(true);
+
+export default function Page( {
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined },
+}) {
+  
+  const [packages, setPackages] = useState<PackageInfo[]>([]);
+  const [isLoading, setLoading] = useState<boolean>(true);
+
+
+  const page = searchParams['page'] ?? '1'
+  const per_page = searchParams['limit'] ?? '6'
+
+  // mocked, skipped and limited in the real app
+  const start = (Number(page) - 1) * Number(per_page) // 0, 5, 10 ...
+  const end = start + Number(per_page) // 5, 10, 15 ...
+
+  const entries = packages.slice(start, end)
   
     useEffect(() => {
       const fetchPackages = async (): Promise<void> => {
@@ -131,17 +148,35 @@ const PackageCard: React.FC<{ packageInfo: PackageInfo }> = ({ packageInfo }) =>
   
   return (
     <>
-    
+    <div className="col-span-12">
+                  <div className="bg-white rounded-lg py-2 px-6 shadow-lg">
+                    <ul className="flex justify-between items-center flex-wrap gap-3 ">
+                      <li className="hidden xl:block">
+                        <p className="mb-0 clr-neutral-500">
+                          Showing {page} of {packages.length} Results
+                        </p>
+                      </li>
+                      
+                     
+                    </ul>
+                  </div>
+                </div>
+      
         {isLoading ? (
           <p>Loading...</p>
         ) : (
-          packages.map((packageInfo) => <PackageCard key={packageInfo._id} packageInfo={packageInfo} />)
+          entries.map((packageInfo) => <PackageCard key={packageInfo._id} packageInfo={packageInfo} />)
         )}
       
       
-      <CardPagination />
+      
+      <PaginationControls
+        hasNextPage={end < packages.length}
+        hasPrevPage={start > 0}
+        dataLength={packages.length}
+      />
     </>
   );
 };
 
-export default Page;
+

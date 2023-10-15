@@ -5,6 +5,7 @@ export interface User {
   };
   name?: string | null | undefined;
   ROLE?: string;
+  token?:string;
   userName?: string;
   accessToken?: string;
   id?: string;

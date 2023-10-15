@@ -68,7 +68,7 @@ const Hero = () => {
           </div>
         </div>
         <div className="flex flex-wrap gap-5 mt-6 bg-white p-5 rounded-xl shadow-lg">
-          <LocationEntry placeholder="Location" />
+          
 
           <div className="w-full md:w-[48%] xl:w-[22%] flex pr-3 items-center justify-between rounded-full sm:text-sm bg-[var(--bg-1)] border">
             <DatePicker
@@ -88,7 +88,7 @@ const Hero = () => {
             />
             <CalendarDaysIcon className="w-6 h-6 text-gray-600 shrink-0" />
           </div>
-          <HeroDropdown4 />
+          
           <Link
             href="#"
             className="py-[14px] px-6 w-full flex justify-center xl:w-auto text-white bg-primary rounded-full">

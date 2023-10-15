@@ -49,7 +49,7 @@ const page = () => {
                   </h3>
                   <p className="mb-0 text-sm text-center">
                     {" "}
-                    Clients Satisfied{" "}
+                    Travelers{" "}
                   </p>
                 </div>
               </div>
@@ -60,34 +60,29 @@ const page = () => {
                 classes="bg-[var(--primary-light)]"
               />
               <h2 className="mt-4 mb-10 h2">
-                We build modern spaces and Apartment property
+              Explore our specially curated tours
               </h2>
               <Tab.Group>
                 <Tab.List className="flex gap-3 about-tab mb-7">
-                  <Tab>Residential</Tab> |<Tab>Apartment</Tab> |
+                  <Tab>Vacation</Tab> |<Tab>Apartment</Tab> |
                   <Tab>Commercial</Tab>
                 </Tab.List>
 
                 <Tab.Panels className="mb-8">
                   <Tab.Panel>
                     <p className="mb-0">
-                      If you&apos;re interested in buying a residential
-                      property, you may want to consider factors such as
-                      location, price of the home.
+                    Join us to uncover the essence of modernity, where each tour is a curated experience, showcasing the epitome of architectural brilliance and innovative tourism. Book your tours in the "Tours" category, and let us guide you through a world of style, luxury, and the thrill of contemporary tour.
+                     
                     </p>
                   </Tab.Panel>
                   <Tab.Panel>
                     <p className="mb-0">
-                      If you&apos;re interested in buying a residential
-                      property, you may want to consider factors such as
-                      location, price of the home.
+                    Join us to uncover the essence of modernity, where each tour is a curated experience, showcasing the epitome of architectural brilliance and innovative tourism. Book your tours in the "Tours" category, and let us guide you through a world of style, luxury, and the thrill of contemporary tour.
                     </p>
                   </Tab.Panel>
                   <Tab.Panel>
                     <p className="mb-0">
-                      If you&apos;re interested in buying a residential
-                      property, you may want to consider factors such as
-                      location, price of the home.
+                    Join us to uncover the essence of modernity, where each tour is a curated experience, showcasing the epitome of architectural brilliance and innovative tourism. Book your tours in the "Tours" category, and let us guide you through a world of style, luxury, and the thrill of contemporary tour.
                     </p>
                   </Tab.Panel>
                 </Tab.Panels>
@@ -96,7 +91,7 @@ const page = () => {
                 <li className="py-2">
                   <div className="flex items-center gap-2">
                     <i className="text-2xl text-primary las la-check-square"></i>
-                    <p className="mb-0"> Find your dream home </p>
+                    <p className="mb-0"> Find your dream tour </p>
                   </div>
                 </li>
                 <li className="py-2">
@@ -119,14 +114,7 @@ const page = () => {
                 </li>
               </ul>
               <div className="flex flex-wrap items-center gap-4 gap-md-10">
-                <Link
-                  href="service"
-                  className="link inline-flex items-center gap-2 py-3 px-6 rounded-full bg-primary text-white :bg-primary-400 hover:text-white font-medium">
-                  <span className="inline-block"> Read More </span>
-                  <span className="material-symbols-outlined mat-icon font-200">
-                    trending_flat
-                  </span>
-                </Link>
+                
                 <div className="flex items-center gap-2 gap-md-4">
                   <div className="grid place-content-center w-12 h-12 rounded-full bg-[var(--primary-light)] text-primary shrink-0">
                     <i className="las la-headset text-2xl"></i>
@@ -187,12 +175,10 @@ const page = () => {
             <div className="col-span-12 lg:col-span-6">
               <SubHeadingBtn text="Why choose us" classes="bg-white" />
               <h2 className="mt-4 h2 mb-6">
-                Elevate Your Living Experience with Our Best Properties
+                Elevate Your Living Experience with Our Best Tours
               </h2>
               <p className="mb-10 clr-neutral-500">
-                Real estate can be bought, sold, leased, or rented, and can be a
-                valuable investment opportunity. The value of real estate can
-                be...
+              Tourism and travel experiences can be booked, explored, shared, and can offer incredible investment opportunities. The value of travel experiences can be...
               </p>
               <ul className="flex flex-col gap-6 mb-10">
                 <li>
@@ -203,11 +189,10 @@ const page = () => {
                     <div className="flex-grow">
                       <h4 className="mb-3 text-2xl font-semibold">
                         {" "}
-                        Buy a Property{" "}
+                        Book a Tour{" "}
                       </h4>
                       <p className="mb-0 clr-neutral-500">
-                        Selling a property&quot; refers to the process of
-                        transferring the ownership
+                      Booking a tour" refers to the process of reserving a spot or activity for a specific travel experience or itinerary.
                       </p>
                     </div>
                   </div>
@@ -220,11 +205,11 @@ const page = () => {
                     <div className="flex-grow">
                       <h4 className="mb-3 text-2xl font-semibold">
                         {" "}
-                        Rent a Property{" "}
+                        Offer a Tour{" "}
                       </h4>
                       <p className="mb-0 clr-neutral-500">
-                        Renting a property typically refers to the process of
-                        paying a landlord
+                      
+                      Offering a tour" typically refers to providing a guided experience or travel package to individuals or groups, showcasing specific destinations or activities.
                       </p>
                     </div>
                   </div>
@@ -236,25 +221,18 @@ const page = () => {
                     </div>
                     <div className="flex-grow">
                       <h4 className="mb-3 text-2xl font-semibold">
-                        {" "}
-                        Sell a Property{" "}
+                      {" "}
+                        Join a Tour{" "}
                       </h4>
                       <p className="mb-0 clr-neutral-500">
-                        Selling a property typically refers to the process of
-                        transferring
+                      
+                      Joining a tour" involves becoming a participant in a pre-arranged travel experience led by a guide or tour operator.
                       </p>
                     </div>
                   </div>
                 </li>
               </ul>
-              <Link
-                href="service"
-                className="link inline-flex items-center gap-2 py-3 px-6 rounded-full bg-primary text-white :bg-primary-400 hover:text-white font-medium">
-                <span className="inline-block"> Read More </span>
-                <span className="material-symbols-outlined mat-icon font-200">
-                  trending_flat
-                </span>
-              </Link>
+              
             </div>
           </div>
         </div>
@@ -265,11 +243,9 @@ const page = () => {
       {/* Counter */}
       <Counter />
       {/* Authors */}
-      <Author />
+      
       {/* Explore section */}
-      <div className="pt-120">
-        <Benefit />
-      </div>
+      
       {/* Testimonail */}
       <Testimonial />
       {/* Mobile app */}

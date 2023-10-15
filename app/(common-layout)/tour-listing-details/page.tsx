@@ -21,58 +21,12 @@ function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-const itineraryData = [
-  {
-    id: 1,
-    name: "Burj Khalifa",
-    location: "Dubai",
-    title: "Discover the Tallest building int the world",
-    desc: "Burj Khalifa is a spectacular skyscraper located in Dubai, United Arab Emirates.",
-    day: "01",
-    img: "/img/itinerary-img-1.jpg",
-  },
-  {
-    id: 2,
-    name: "Dubai Mall",
-    location: "Dubai",
-    title: "Experience Luxury Shopping and Entertainment at Dubai",
-    desc: "Dubai Mall is a premier shopping and entertainment destination located in the heart of Dubai, UAE",
-    day: "02",
-    img: "/img/itinerary-img-2.jpg",
-  },
-  {
-    id: 3,
-    name: "Dubai Fountain",
-    location: "Dubai",
-    title: "Experience the Spectacular Dubai Fountain Show",
-    desc: "The Dubai Fountain is a spectacular water feature located at the base of the iconic Burj Khalifa in Dubai",
-    day: "03",
-    img: "/img/itinerary-img-3.jpg",
-  },
-  {
-    id: 4,
-    name: "Jumerah Beach",
-    location: "Dubai",
-    title: "Relax and Unwind at Jumeirah Beach in Dubai",
-    desc: "Jumeirah Beach is a pristine stretch of white sand located in the heart of Dubai, United Arab Emirates",
-    day: "04",
-    img: "/img/itinerary-img-4.jpg",
-  },
-  {
-    id: 5,
-    name: "Dubai Museum",
-    location: "Dubai",
-    title: "Discover the Rich History of Dubai at Dubai Museum",
-    desc: "Dubai Museum is a must-visit destination for anyone interested in the history and culture of Dubai, UAE",
-    day: "05",
-    img: "/img/itinerary-img-5.jpg",
-  },
-];
 const tooltipStyle = {
   backgroundColor: "#3539E9",
   color: "#fff",
   borderRadius: "10px",
 };
+
 
 type PostProps = {
   ID: number;
@@ -80,6 +34,7 @@ type PostProps = {
   CANCELLATION_POLICY:string;
   NAME: string;
   DESCRIPTION: string;
+  LOCATION: string;
   AMOUNT: number;
   DURATION: string;
   INCLUSION: string[];
@@ -218,14 +173,14 @@ const Page: React.FC<{ promise: Promise<PostProps> }> = ({ promise }) => {
                       <li className="py-2">
                         <p className="mb-0">
                           ID:
-                          <span className="text-primary">12546</span>
+                          <span className="text-primary">{post?.ID}</span>
                         </p>
                       </li>
                       <li className="py-2">
                         <div className="flex items-center gap-1">
                           <span>
-                            Place Covered:{" "}
-                            <span className="text-primary">Desert</span>
+                            Location:{" "}
+                            <span className="text-primary">{post?.LOCATION}</span>
                           </span>
                         </div>
                       </li>

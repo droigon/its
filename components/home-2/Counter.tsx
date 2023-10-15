@@ -22,7 +22,7 @@ const Counter = () => {
             <h2 className="h2 text-white mb-2">
               <CounterElement end={15} />k
             </h2>
-            <span>Completed Property</span>
+            <span>Completed Tours</span>
           </div>
           <div className="col-span-12 md:col-span-6 lg:col-span-3 text-white text-center">
             <div className="text-4xl rounded-full mb-4 bg-[var(--secondary)] w-20 h-20 flex items-center justify-center mx-auto">

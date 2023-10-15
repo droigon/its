@@ -79,19 +79,7 @@ export default function RootLayout({
 
             <div className="col-span-12 lg:col-span-8 order-1 lg:order-2">
               <div className="grid grid-cols-12 gap-4 lg:gap-6">
-                <div className="col-span-12">
-                  <div className="bg-white rounded-lg py-2 px-6 shadow-lg">
-                    <ul className="flex justify-between items-center flex-wrap gap-3 ">
-                      <li className="hidden xl:block">
-                        <p className="mb-0 clr-neutral-500">
-                          Showing 2 of 20 Results
-                        </p>
-                      </li>
-                      
-                     
-                    </ul>
-                  </div>
-                </div>
+                
                 {children}
               </div>
             </div>

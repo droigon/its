@@ -2,16 +2,22 @@ import React, { Fragment, useState } from "react";
 import { Combobox, Transition } from "@headlessui/react";
 import { CheckIcon, MapPinIcon } from "@heroicons/react/24/outline";
 
+import { manufacturers } from "../../constants";
+import { SearchLocationProps, SearchManuFacturerProps } from "types";
+import { set } from "react-hook-form";
+
 const people = [
-  { id: 1, name: "New York" },
+  { id: 1, name: "Italy" },
   { id: 2, name: "Washington" },
   { id: 3, name: "Chicago" },
   { id: 4, name: "Los Angelos" },
   { id: 6, name: "Oklahoma" },
 ];
 
-const LocationEntry: React.FC<{ placeholder: string }> = ({ placeholder }) => {
-  const [selected, setSelected] = useState({});
+
+const LocationEntry = ({ location, setLocation }: SearchLocationProps) => {
+//const LocationEntry: React.FC<{ placeholder: string }> = ({{ manufacturer, setManuFacturer }: SearchManuFacturerProps }) => {
+  
   const [query, setQuery] = useState("");
 
   const filteredPeople =
@@ -25,14 +31,14 @@ const LocationEntry: React.FC<{ placeholder: string }> = ({ placeholder }) => {
         );
 
   return (
-    <Combobox value={selected} onChange={setSelected}>
+    <Combobox value={location} onChange={setLocation}>
       <div className="relative w-full md:w-[48%] xl:w-[22%] shrink-0">
         <div className="relative w-full cursor-pointer overflow-hidden rounded-full sm:text-sm bg-[var(--bg-1)] border focus:outline-none">
           <Combobox.Input
             className="w-full bg-[var(--bg-1)] border-none py-3 pl-3 md:pl-4 text-sm leading-5 text-gray-900 focus:outline-none"
             displayValue={(person: any) => person.name}
             onChange={(event) => setQuery(event.target.value)}
-            placeholder={placeholder}
+            placeholder="Location"
           />
           <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-4">
             <MapPinIcon className="h-5 w-5 text-gray-500" aria-hidden="true" />

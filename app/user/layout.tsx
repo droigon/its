@@ -85,23 +85,22 @@ export default function RootLayout({
 
   const heading = convertToTitleCase(path || " ");
 
+  const { data } = useSession();
   const { data: session } = useSession();
   const [userData, setUserData] = useState<UserData | null>(null);
 
   const [isVerified, setisVerified] = useState(true);
 
-  const datas = session?.user;
-  console.log(datas)
+
 
   
 
-  
 
 
   useEffect(() => {
-    if (session && session?.user?.data) {
-      console.log(session)
-      const userId = session?.user?.data?.id;
+    
+    if (session) {
+      const userId = session.user?.id || "";
 
       fetchUserData(userId)
         .then((userData) => {
