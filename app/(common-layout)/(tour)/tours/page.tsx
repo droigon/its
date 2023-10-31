@@ -168,12 +168,13 @@ export default function Page( {
           entries.map((packageInfo) => <PackageCard key={packageInfo._id} packageInfo={packageInfo} />)
         )}
       
-      
+       
       
       <PaginationControls
         hasNextPage={end < packages.length}
         hasPrevPage={start > 0}
         dataLength={packages.length}
+        url="/tours/"
       />
     </>
   );

@@ -35,7 +35,7 @@ export default function RootLayout({
                   <input
                     type="text"
                     className="w-full bg-transparent border-0 focus:outline-none"
-                    placeholder="Search by car name"
+                    placeholder="Search by title"
                   />
                   <button
                     type="button"
@@ -43,16 +43,40 @@ export default function RootLayout({
                     <SearchIcon />
                   </button>
                 </div>
-                <div className="border-t border-dashed my-6"></div>
+              
                 
                 <div className="border-t border-dashed my-6"></div>
                 <p className="mb-4 text-[var(--neutral-700)] text-xl font-medium">
-                  Pricing scale
+                  Date and Guest
                 </p>
-                <CustomRangeSlider />
+                <div className="flex items-center justify-between rounded-full border border-neutral-40 bg-[var(--bg-2)] px-5 py-3">
+                  <input
+                    type="text"
+                    className="w-full bg-transparent border-0 focus:outline-none"
+                    placeholder="Check In - Check Out"
+                  />
+                  <button
+                    type="button"
+                    className="border-0 bg-transparent p-0 lh-1">
+                    <SearchIcon />
+                  </button>
+                </div>
+                <div className="mt-4 flex items-center justify-between rounded-full border border-neutral-40 bg-[var(--bg-2)] px-5 py-3">
+                  <input
+                    type="text"
+                    className="w-full bg-transparent border-0 focus:outline-none"
+                    placeholder="Guests"
+                  />
+                  <button
+                    type="button"
+                    className="border-0 bg-transparent p-0 lh-1">
+                    <SearchIcon />
+                  </button>
+                </div>
+                
                 <div className="border-t border-dashed my-6"></div>
                 <p className="mb-4 text-[var(--neutral-700)] text-xl font-medium">
-                  Types of Places
+                 Holy Land Places
                 </p>
                 <ul className="flex flex-col gap-3">
                   {placeTypes.map((place) => (

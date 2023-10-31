@@ -17,7 +17,7 @@ const VendorListingList = ({ item }: any) => {
   const [token, setToken] = useState("");
   const { _id,NAME, LOCATION,DESCRIPTION,img, AMOUNT, rating, name } = item;
   const { data: session } = useSession();
- 
+  
 
   const handleDelete = async (itemId:string) => {
     console.log(itemId)
@@ -85,7 +85,7 @@ const VendorListingList = ({ item }: any) => {
           <div className="property-card__body">
             <div className="flex justify-between mb-2">
               <Link
-                href="/hotel-listing-details"
+                href={`/vendor/listings/${_id}`}
                 className="link block flex-grow text-[var(--neutral-700)] hover:text-primary text-xl font-medium">
                 {NAME}
               </Link>

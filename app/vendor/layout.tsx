@@ -12,6 +12,7 @@ import {
   ClipboardDocumentListIcon,
   Cog6ToothIcon,
   CurrencyDollarIcon,
+  HomeIcon,
   PlusCircleIcon,
   StarIcon,
   TicketIcon,
@@ -128,6 +129,16 @@ export default function RootLayout({
             <ul className="py-5">
               <li>
                 <Link
+                  href="/"
+                  className={`flex items-center gap-2 rounded-md px-6 py-3 duration-300 ${
+                    path == "/" && "bg-primary text-white"
+                  }`}>
+                  <HomeIcon className="w-5 h-5" />
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/vendor/listings"
                   className={`flex items-center gap-2 rounded-md px-6 py-3 duration-300 ${
                     path == "/vendor/listings" && "bg-primary text-white"
@@ -138,9 +149,9 @@ export default function RootLayout({
               </li>
               <li>
                 <Link
-                  href="/vendor/vendor-bookings"
+                  href="/vendor/bookings"
                   className={`flex items-center gap-2 rounded-md px-6 py-3 duration-300 ${
-                    path == "/vendor/vendor-bookings" && "bg-primary text-white"
+                    path == "/vendor/bookings" && "bg-primary text-white"
                   }`}>
                   <TicketIcon className="w-5 h-5" />
                   Bookings
@@ -156,16 +167,7 @@ export default function RootLayout({
                   Activities
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/vendor/vendor-earnings"
-                  className={`flex items-center gap-2 rounded-md px-6 py-3 duration-300 ${
-                    path == "/vendor/vendor-earnings" && "bg-primary text-white"
-                  }`}>
-                  <CurrencyDollarIcon className="w-5 h-5" />
-                  Earnings
-                </Link>
-              </li>
+              
               <li>
                 <Link
                   href="/vendor/vendor-reviews"
