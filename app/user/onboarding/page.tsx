@@ -15,6 +15,8 @@ import { useSession } from "next-auth/react"
 import { toast } from 'react-toastify'
 import { UploadButton } from "src/utils/uploadthing";
 import { CldUploadWidget } from 'next-cloudinary';
+import { PhoneInput } from 'react-international-phone';
+import 'react-international-phone/style.css';
 
 import { CldUploadButton } from 'next-cloudinary';
 import styles from '@/styles/Home.module.css';
@@ -48,6 +50,7 @@ export default function Page() {
   }[]>([])
 
   const { data: session } = useSession();
+  const [phone, setPhone] = useState('');
  
 
   
@@ -61,6 +64,16 @@ export default function Page() {
   //const handleOnClick = useRef();
 
   const Register = async (event:any) => {
+    toast.info('Uploading...', {
+      position: "bottom-center",
+      autoClose: 7000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
     event.preventDefault();
     if ([picture, insurance, identity].every(arr => arr.length === 0)) {
       //Toast
@@ -74,24 +87,35 @@ export default function Page() {
         picture:picture,
         insurance:insurance,
         identity:identity,
-        phone: data.current.phoneNumber
+        phone: phone
 
       }),
       headers: {
         "Content-Type": "application/json",
       },
     });
-    console.log("onboarding")
+
     const response = await res.json();
     console.log(response)
-    alert(response.status);
-    
-    //console.log({ response });
-    setTimeout(() => {
-      Router.push("/user/personal-info");
-    }, 2000); // Adjust the delay time as needed
-    
-   
+    if (response.status === "OK") {
+      alert("Data uploaded successfully");
+      setTimeout(() => {
+        Router.push("/user/personal-info");
+      }, 2000); // Adjust the delay time as needed
+    }
+    else{
+      toast.error(response.message, {
+        position: "bottom-center",
+        autoClose: 7000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+        Router.refresh(); 
+    }
   }
 
 
@@ -136,14 +160,22 @@ export default function Page() {
                 <div className="border-t pt-4">
                   
                   <form onSubmit={Register}>
-                    <p className="mt-6 mb-4 text-xl font-medium">Phone Number:</p>
-                    <input
-                      type="text"
+                    
+
+                  <div className="col-span-12 lg:col-span-12">
+                    <label
+                      htmlFor="user-phone"
+                      className="block mb-2 font-medium clr-neutral-500">
+                      Phone (Optional) :
+                    </label>
+                    <PhoneInput
+                      defaultCountry="ua"
+                      //onChange={(e) => (data.current.phoneNumber = e.target.value)}
                       required
-                      onChange={(e) => (data.current.phoneNumber = e.target.value)}
-                      className="w-full border p-2 focus:outline-none rounded-md text-base"
-                      placeholder="Enter your phone number"
-                    />
+                      inputClassName=" border w-full h-[200] focus:outline-none mx-16 py-16 px-32 m -32 rounded-3xl"
+                      onChange={(phone) => setPhone(phone)} />
+                
+                  </div>
                   
                       <div className="pt-10 property-card__body">
                       <div className="flex flex-wrap justify-between items-center">

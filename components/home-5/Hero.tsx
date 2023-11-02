@@ -150,6 +150,8 @@ const Hero = () => {
               className="swiper choice-slider z-1 mb-16">
               <SwiperSlide className="px-5 my-8">
                 <div className="border rounded-2xl hover:shadow-[rgba(149,157,165,0.2)_0px_8px_24px] hover:border-none p-6 xl:p-8 text-center duration-300">
+                <Link
+                    href="/search?category=land&limit=5">
                   <Image
                     width={60}
                     height={60}
@@ -159,13 +161,15 @@ const Hero = () => {
                   />
                   <h4 className="mb-4 text-2xl font-semibold"> Holy Land </h4>
                   <p className="mb-0">
-                    Our expert tour guide knows the best about traveling they
-                    will guide you all time
+                  Holy Land Tours: Embark on a Sacred Pilgrimage to Ancient Sites, where History and Spirituality Unite in a Profound Journey of Discovery.
                   </p>
+                  </Link>
                 </div>
               </SwiperSlide>
               <SwiperSlide className="px-5 my-8">
                 <div className="border rounded-2xl hover:shadow-[rgba(100,100,111,0.2)_0px_7px_29px_0px] hover:border-none p-6 xl:p-8 text-center duration-300">
+                <Link
+                    href="/search?category=city&limit=5">
                   <Image
                     width={60}
                     height={60}
@@ -177,13 +181,15 @@ const Hero = () => {
                    Holy City
                   </h4>
                   <p className="mb-0">
-                    We realize ideas from simple to complex, everything becomes
-                    easy to use
+                  Embark on a Spiritual Journey and Explore the Divine Beauty of Sacred Places, Enriching Your Soul Along the Way.
                   </p>
+                  </Link>
                 </div>
               </SwiperSlide>
               <SwiperSlide className="px-5 my-8">
                 <div className="border rounded-2xl hover:shadow-[rgba(100,100,111,0.2)_0px_7px_29px_0px] hover:border-none p-6 xl:p-8 text-center duration-300">
+                <Link
+                    href="/search?category=Vacation&limit=5">
                   <Image
                     width={60}
                     height={60}
@@ -193,9 +199,9 @@ const Hero = () => {
                   />
                   <h4 className="mb-4 text-2xl font-semibold">Others</h4>
                   <p className="mb-0">
-                    Our customer experience team is available around the clock
-                    to ques your ans
+                    Browse other tour category
                   </p>
+                  </Link>
                 </div>
               </SwiperSlide>
             </Swiper>

@@ -10,13 +10,14 @@ import { createUrl } from "@/src/utils/createUrl";
 import Button from "@/components/Button";
 import TextBox from "@/components/TextBox";
 
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 interface IProps {
   searchParams?: { [key: string]: string | string[] | undefined };
 }
 
 //const page = () => {
+  
 const LoginPage = ({ searchParams }: IProps) => {
   const [values, setValues] = useState({
     password: "",
@@ -39,11 +40,13 @@ const LoginPage = ({ searchParams }: IProps) => {
   const pass = useRef("");
   const role = optionSearchParams.get("role") || null;
 
+  
+
   const onSubmit = async () => {
-    //console.log(email, pass);
-    toast('🦄 Wow so easy!', {
+    console.log("email");
+    toast.info('Logging in...', {
       position: "bottom-center",
-      autoClose: 5000,
+      autoClose: 7000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -98,8 +101,11 @@ const LoginPage = ({ searchParams }: IProps) => {
                       className="w-full bg-[var(--bg-1)] border focus:outline-none rounded-full py-3 px-5"
                       placeholder="Enter Your Email"
                       id="enter-email"
+                      
                     />
                   </div>
+                  
+
                   <div className="col-span-12">
                     <label
                       htmlFor="enter-password"

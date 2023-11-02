@@ -14,14 +14,57 @@ import {
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
+import { useRouter } from "next/navigation";
+import { useState,useRef } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+
   const path = usePathname();
+  const router = useRouter();
+  const title= useRef('')
+  const [dateRange, setDateRange] = useState<[Date | null, Date | null]>([
+    null,
+    null,
+  ]);
+  const [startDate, endDate] = dateRange;
+  
+  console.log(path)
+
+  const filterByTitle = () => { 
+    const searchParams = new URLSearchParams(window.location.search);
+    searchParams.set("q", title.toString());
+    console.log(searchParams)
+
+    const newPathname = `/filter/?q=${title.current}&limit=5`;
+    //Router.push("/user/personal-info");
+    setDateRange([null,null])
+    router.push(newPathname);
+  }
+  
+  const filterByDate = () => { 
+    console.log("send")
+    const searchParams = new URLSearchParams(window.location.search);
+    searchParams.set("q", title.toString());
+    
+    const firstDate = startDate ? startDate.getTime() / 1000 : 0;
+    const lastDate = endDate ? endDate.getTime() / 1000 : 0;
+
+    const newPathname = `/filter/?checkin=${firstDate}&checkout=${lastDate}`;
+    //Router.push("/user/personal-info");
+    setTimeout(() => {
+      router.push(newPathname,{ shallow: true });
+    }, 0); 
+   
+  }
+  
+
+
   return (
     <>
       <div className="py-[30px] lg:py-[60px] bg-[var(--bg-2)] px-3">
@@ -36,9 +79,11 @@ export default function RootLayout({
                     type="text"
                     className="w-full bg-transparent border-0 focus:outline-none"
                     placeholder="Search by title"
+                    onChange={(e) => (title.current = e.target.value)}
                   />
                   <button
                     type="button"
+                    onClick={filterByTitle}
                     className="border-0 bg-transparent p-0 lh-1">
                     <SearchIcon />
                   </button>
@@ -50,13 +95,19 @@ export default function RootLayout({
                   Date and Guest
                 </p>
                 <div className="flex items-center justify-between rounded-full border border-neutral-40 bg-[var(--bg-2)] px-5 py-3">
-                  <input
-                    type="text"
-                    className="w-full bg-transparent border-0 focus:outline-none"
-                    placeholder="Check In - Check Out"
-                  />
+                <DatePicker
+                  placeholderText="Check In - Check Out"
+                  selectsRange={true}
+                  startDate={startDate}
+                  dateFormat="dd-MM-yyyy"
+                  endDate={endDate}
+                  onChange={(update) => setDateRange(update)}
+                  className="w-full bg-transparent border-0 focus:outline-none"
+                />
+                  
                   <button
                     type="button"
+                    onClick={filterByDate}
                     className="border-0 bg-transparent p-0 lh-1">
                     <SearchIcon />
                   </button>

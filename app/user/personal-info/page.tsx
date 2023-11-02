@@ -15,6 +15,7 @@ interface UserData {
   LASTNAME:string;
   PHONE_NUMBER:string;
   EMAIL:string;
+  PROFILE_PICTURE:string;
   isVerified:boolean;
   // Add other properties based on your API response
 }
@@ -87,6 +88,7 @@ const Page = () => {
           if (userData) {
             setUserData(userData);
             setisVerified(userData.isVerified);
+            setImageSrc(userData.PROFILE_PICTURE);
           }
         })
         .catch((error) => {
@@ -180,27 +182,14 @@ const Page = () => {
                   </label>
                   <PhoneInput
                     defaultCountry="ua"
-                    value={phone}
+                    value={(userData?.PHONE_NUMBER)?.toString()} 
+                    //defaultMask="111"
                     inputClassName=" border w-full h-[200] focus:outline-none mx-16 py-16 px-32 m -32 rounded-3xl"
                     onChange={(phone) => setPhone(phone)} />
                
                 </div>
                 
-                 
-                <div className="col-span-12 lg:col-span-12">
-                  <label
-                    htmlFor="user-phone"
-                    className="block mb-2 font-medium clr-neutral-500">
-                    Phone (Optional) :
-                  </label>
-                  <input
-                    type="text"
-                    id="user-phone"
-                    defaultValue={userData?.PHONE_NUMBER} 
-                    className="border w-full focus:outline-none py-3 px-6 rounded-2xl"
-                    placeholder="Enter number"
-                  />
-                </div>
+
                 <div className="col-span-12 lg:col-span-12">
                   <label className="block mb-2 font-medium clr-neutral-500">
                     Gender :
